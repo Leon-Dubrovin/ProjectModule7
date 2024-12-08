@@ -9,7 +9,7 @@ class Product:
 class Shop:
     def __init__(self):
         self.__file_name = 'products.txt'
-        file = open(self.__file_name, 'w')
+        file = open(self.__file_name, 'a') #создание файла, если ещё не было
         file.close()
     def get_products(self):
         file = open(self.__file_name, 'r')
@@ -26,7 +26,9 @@ class Shop:
                 start_pos = pos + 1
             elif str_products[pos] == ',' and start_pos != -1:
                 set_products.add(str_products[start_pos:pos])
-                start_pos == -1
+                start_pos = -1
+            pos += 1
+
         file = open(self.__file_name, 'a')
         for prod in products:
             if prod.name in set_products:
