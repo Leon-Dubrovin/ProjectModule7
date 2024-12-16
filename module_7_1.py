@@ -7,34 +7,21 @@ class Product:
     def __str__(self):
         return f'{self.name}, {self.weight}, {self.category}'
 class Shop:
-    def __init__(self):
-        self.__file_name = 'products.txt'
-        file = open(self.__file_name, 'a') #создание файла, если ещё не было
-        file.close()
+    __file_name = 'products.txt'
     def get_products(self):
-        file = open(self.__file_name, 'r')
-        str_products = file.read()
-        file.close()
-        return str_products
+        with open(Shop.__file_name, 'a+') as file:
+            file.seek(0)
+            str_products = file.read()
+            return str_products
+
     def add(self, *products:Product):
         str_products = self.get_products()
-        set_products = set()
-        pos = 0
-        start_pos = 0
-        while pos < len(str_products):
-            if str_products[pos] == '\n':
-                start_pos = pos + 1
-            elif str_products[pos] == ',' and start_pos != -1:
-                set_products.add(str_products[start_pos:pos])
-                start_pos = -1
-            pos += 1
-
-        file = open(self.__file_name, 'a')
-        for prod in products:
-            if prod.name in set_products:
-                print(f'Продукт {prod.name} уже есть в магазине')
-            else:
-                file.write(str(prod)+'\n')
+        with open(Shop.__file_name, 'a') as file:
+            for prod in products:
+                if prod.name in str_products:
+                    print(f'Продукт {prod.name} уже есть в магазине')
+                else:
+                    file.write(str(prod) + '\n')
 
 
 if __name__ == '__main__':
