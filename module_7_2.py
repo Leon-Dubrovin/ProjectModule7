@@ -1,14 +1,10 @@
 def custom_write(file_name, strings):
     strings_positions = {}
-    if len(strings) > 0:   #в случае пустого списка возвращается пустой словарь
-        with open(file_name, 'w', encoding='utf-8') as file:
-            strings_positions[(1, 0)] = strings[0]
-            file.write(strings[0])
-            if len(strings) > 1:
-                for i in range(1, len(strings)):
-                    strings_positions[(i + 1, file.tell() + 2)] = strings[i]
-                    file.write('\n' + strings[i])
-    return strings_positions
+    with open(file_name, 'w', encoding='utf-8') as file:
+        for i in range(len(strings)):
+            strings_positions[(i + 1, file.tell())] = strings[i]
+            file.write(strings[i] + '\n')
+        return strings_positions
 
 if __name__ == '__main__':
     info = [
