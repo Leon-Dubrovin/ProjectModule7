@@ -22,7 +22,7 @@ score_2 = 42
 team1_time = 1552.512
 team2_time = 2153.31451
 s2 = 'Команда {team} решила задач: {score}!'
-s3 = '{team} решили задачи за {time} с!'
+s3 = '{team} решили задачи за {time:.1f} с!'
 print(s2.format(team = team1, score = score_1))
 print(s3.format(team = team1, time = team1_time))
 print(s2.format(team = team2, score = score_2))
